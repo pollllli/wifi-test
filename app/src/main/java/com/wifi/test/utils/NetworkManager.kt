@@ -27,10 +27,14 @@ class NetworkManager {
 
         try {
             val key = "$ip:$port"
-            val socket = tcpSockets.getOrPut(key) { Socket(ip, port) }
+            val socket = tcpSockets.getOrPut(key) { 
+                val newSocket = Socket()
+                newSocket.soTimeout = 2000
+                newSocket
+            }
             
             if (!socket.isConnected) {
-                socket.connect(socket.remoteSocketAddress, 3000)
+                socket.connect(java.net.InetSocketAddress(ip, port), 3000)
             }
 
             socket.outputStream.write(data)
@@ -38,7 +42,7 @@ class NetworkManager {
             
             // 读取响应
             val buffer = ByteArray(1024)
-            val bytesRead = socket.inputStream.read(buffer, 0, buffer.size, 2000)
+            val bytesRead = socket.inputStream.read(buffer, 0, buffer.size)
             if (bytesRead > 0) {
                 success = true
             }
