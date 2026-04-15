@@ -7,20 +7,20 @@ import androidx.room.Query
 @Dao
 interface TestDao {
     @Insert
-    suspend fun insertTestData(testData: TestData)
+    fun insertTestData(testData: TestData)
 
     @Insert
-    suspend fun insertTestSummary(testSummary: TestSummary)
+    fun insertTestSummary(testSummary: TestSummary)
 
     @Query("SELECT * FROM test_data WHERE timestamp BETWEEN :startTime AND :endTime ORDER BY timestamp")
-    suspend fun getTestDataByTimeRange(startTime: Long, endTime: Long): List<TestData>
+    fun getTestDataByTimeRange(startTime: Long, endTime: Long): List<TestData>
 
     @Query("SELECT * FROM test_summary ORDER BY id DESC LIMIT 1")
-    suspend fun getLatestTestSummary(): TestSummary?
+    fun getLatestTestSummary(): TestSummary?
 
     @Query("DELETE FROM test_data")
-    suspend fun clearTestData()
+    fun clearTestData()
 
     @Query("DELETE FROM test_summary")
-    suspend fun clearTestSummaries()
+    fun clearTestSummaries()
 }

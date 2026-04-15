@@ -130,7 +130,7 @@ class WifiTestService : Service() {
         }
     }
 
-    private suspend fun sendPacket() {
+    private fun sendPacket() {
         val data = ByteArray(testConfig!!.packetSize) { 0x41 } // 'A' byte
         val result = when (testConfig!!.protocol) {
             "TCP" -> networkManager.sendTcpPacket(testConfig!!.targetIp, testConfig!!.targetPort, data)
@@ -157,7 +157,7 @@ class WifiTestService : Service() {
         signalStrengthList.offer(wifiManager.getSignalStrength())
     }
 
-    private suspend fun recordTestData() {
+    private fun recordTestData() {
         val currentTime = System.currentTimeMillis()
         val signalStrength = wifiManager.getSignalStrength()
 
@@ -175,12 +175,12 @@ class WifiTestService : Service() {
             disconnectDuration = totalDisconnectDuration
         )
 
-        withContext(Dispatchers.IO) {
+        Thread {
             testDatabase.testDao().insertTestData(testData)
-        }
+        }.start()
     }
 
-    private suspend fun generateTestSummary() {
+    private fun generateTestSummary() {
         val endTime = System.currentTimeMillis()
         val totalDuration = endTime - testStartTime
         val packetLossRate = if (totalSentPackets > 0) (totalLostPackets.toDouble() / totalSentPackets) * 100 else 0.0
@@ -206,9 +206,9 @@ class WifiTestService : Service() {
             avgSignalStrength = avgSignalStrength
         )
 
-        withContext(Dispatchers.IO) {
+        Thread {
             testDatabase.testDao().insertTestSummary(testSummary)
-        }
+        }.start()
     }
 
     private fun calculateJitter(): Double {
