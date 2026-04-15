@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_scan_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="扫描WiFi网络"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="配置测试参数"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/et_target_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="目标IP地址"
+                android:inputType="text"
+                android:layout_marginBottom="8dp"
+                android:text="192.168.1.1"/>
+
+            <EditText
+                android:id="@+id/et_target_port"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="目标端口"
+                android:inputType="number"
+                android:layout_marginBottom="8dp"
+                android:text="8080"/>
+
+            <EditText
+                android:id="@+id/et_test_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="测试时长(秒)"
+                android:inputType="number"
+                android:layout_marginBottom="8dp"
+                android:text="600"/>
+
+            <EditText
+                android:id="@+id/et_packet_interval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="包间隔(毫秒)"
+                android:inputType="number"
+                android:layout_marginBottom="8dp"
+                android:text="1000"/>
+
+            <EditText
+                android:id="@+id/et_packet_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="包大小(字节)"
+                android:inputType="number"
+                android:layout_marginBottom="16dp"
+                android:text="1024"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择协议"
+                android:layout_marginBottom="8dp"/>
+
+            <RadioGroup
+                android:id="@+id/rg_protocol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_tcp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TCP"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rb_udp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UDP"
+                    android:layout_marginStart="16dp"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_start_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始测试"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="附近WiFi网络"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <ListView
+                android:id="@+id/lv_wifi_networks"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
